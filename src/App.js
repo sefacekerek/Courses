@@ -5,7 +5,7 @@ import CourseContext from "./context/CourseContext";
 import Loading from "./pages/Loading";
 
 function App() {
-  const { getDataList, loading } = useContext(CourseContext);
+  const { getDataList, loading, data } = useContext(CourseContext);
 
   useEffect(() => {
     getDataList();
@@ -13,7 +13,16 @@ function App() {
 
   return (
     <div className="App">
-      {loading ? <Loading></Loading> : <CourseList></CourseList>}
+      {loading ? (
+        <Loading></Loading>
+      ) : data.length === 0 ? (
+        <div style={{textAlign:"center"}}>
+          <h2>you deleted all your courses!!!</h2>
+          <button className="delete" onClick={getDataList}>Refresh</button>
+        </div>
+      ) : (
+        <CourseList></CourseList>
+      )}
     </div>
   );
 }
