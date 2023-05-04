@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useContext } from "react";
+import "./App.css";
+import CourseList from "./pages/CoursesList";
+import CourseContext from "./context/CourseContext";
+import Loading from "./pages/Loading";
 
 function App() {
+  const { getDataList, loading } = useContext(CourseContext);
+
+  useEffect(() => {
+    getDataList();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {loading ? <Loading></Loading> : <CourseList></CourseList>}
     </div>
   );
 }
